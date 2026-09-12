@@ -33,25 +33,25 @@ for line in program_lines:
     token_counter += 1
 
     #handle each opcode
-    if opcode == "PUSH":
+    if opcode == "APPEND":
         #expecting a number
         number = int(parts[1])
         program.append(number)
         token_counter += 1
 
-    elif opcode == "PRINT":
+    elif opcode == "INSCRIBE":
         #parsing a string literal
         string_literal = ' '.join(parts[1:])[1:-1]
         program.append(string_literal)
         token_counter += 1
 
-    elif opcode == "JUMP.EQ.0":
+    elif opcode == "PROCEED.IF.EQ.0":
         #check for label =0
         label = parts[1]
         program.append(label)
         token_counter += 1
 
-    elif opcode == "JUMP.GT.0":
+    elif opcode == "PROCEED.IF.GT.0":
         #check for label >0
         label = parts[1]
         program.append(label)
@@ -85,16 +85,16 @@ class Stack:
 pc = 0
 stack = Stack(256)
 
-while program[pc] != "HALT":
+while program[pc] != "WITHHOLD":
     opcode = program[pc]
     pc += 1
 
-    if opcode == "PUSH": #push element to stack
+    if opcode == "APPEND": #push element to stack
         number = program[pc]
         pc += 1
         stack.push(number)
 
-    elif opcode == "POP": #remove element from stack
+    elif opcode == "DISPOSE": #remove element from stack
         stack.pop()
 
     elif opcode == "ADD": #pop two last elements and push their sum
@@ -107,7 +107,7 @@ while program[pc] != "HALT":
         b = stack.pop()
         stack.push(b-a)
 
-    elif opcode == "PRINT": #print given string
+    elif opcode == "INSCRIBE": #print given string
         string_literal = program[pc]
         pc += 1
         print(string_literal)
@@ -116,14 +116,14 @@ while program[pc] != "HALT":
         number = int(input())
         stack.push(number)
 
-    elif opcode == "JUMP.EQ.0": #check if =0
+    elif opcode == "PROCEED.IF.EQ.0": #check if =0
         number = stack.top()
         if number == 0:
             pc = label_tracker[program[pc]]
         else:
             pc += 1
 
-    elif opcode == "JUMP.GT.0": #check if >0
+    elif opcode == "PROCEED.IF.GT.0": #check if >0
         number = stack.top()
         if number > 0:
             pc = label_tracker[program[pc]]
