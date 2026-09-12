@@ -1,5 +1,11 @@
 import sys
 
+#------------------------------------------------
+#     To run the .oll file, type in terminal:
+#     python interpreter.py PROGRAM_NAME.oll
+#------------------------------------------------
+
+
 #read arguments
 program_filepath = sys.argv[1]
 
